@@ -33,61 +33,208 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-    .main-header {
-        font-size: 2.2rem;
-        font-weight: 700;
-        margin-bottom: 0.2rem;
-        color: #1E293B;
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+    html, body, [class*="css"] {
+        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     }
+
+    code, pre, [class*="stCode"] {
+        font-family: 'JetBrains Mono', monospace !important;
+    }
+
+    .main-header {
+        font-size: 2.35rem;
+        font-weight: 800;
+        letter-spacing: -0.025em;
+        margin-bottom: 0.25rem;
+        background: linear-gradient(135deg, #0F172A 0%, #1E3A8A 45%, #2563EB 80%, #0D9488 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
     .sub-header {
         font-size: 1.05rem;
-        color: #64748B;
-        margin-bottom: 1.5rem;
+        font-weight: 500;
+        color: #475569;
+        margin-bottom: 1.25rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        flex-wrap: wrap;
     }
+
+    .track-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: #0D9488;
+        background: rgba(13, 148, 136, 0.1);
+        border: 1px solid rgba(13, 148, 136, 0.25);
+        padding: 0.25rem 0.65rem;
+        border-radius: 9999px;
+        backdrop-filter: blur(8px);
+    }
+
+    .track-dot {
+        width: 7px;
+        height: 7px;
+        background-color: #10B981;
+        border-radius: 50%;
+        box-shadow: 0 0 8px #10B981;
+        display: inline-block;
+    }
+
     .signature-card-blocked {
-        background: linear-gradient(135deg, rgba(239, 68, 68, 0.12), rgba(185, 28, 28, 0.05));
-        border: 2px solid #EF4444;
-        border-radius: 10px;
-        padding: 1.5rem;
+        background: linear-gradient(135deg, rgba(254, 242, 242, 0.9) 0%, rgba(254, 226, 226, 0.65) 100%);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1.5px solid rgba(239, 68, 68, 0.6);
+        border-radius: 14px;
+        padding: 1.6rem;
         margin-top: 1rem;
         margin-bottom: 1.5rem;
+        box-shadow: 0 12px 32px -4px rgba(239, 68, 68, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
+
+    .signature-card-blocked:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 16px 36px -4px rgba(239, 68, 68, 0.26);
+    }
+
+    .signature-card-authorized {
+        background: linear-gradient(135deg, rgba(240, 253, 244, 0.9) 0%, rgba(220, 252, 231, 0.65) 100%);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1.5px solid rgba(34, 197, 94, 0.6);
+        border-radius: 14px;
+        padding: 1.6rem;
+        margin-top: 1rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 12px 32px -4px rgba(34, 197, 94, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .signature-card-authorized:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 16px 36px -4px rgba(34, 197, 94, 0.26);
+    }
+
     .signature-rule-badge {
         display: inline-block;
-        background-color: #DC2626;
+        background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
         color: #FFFFFF;
         font-weight: 800;
-        font-size: 1.15rem;
-        padding: 0.4rem 0.9rem;
-        border-radius: 6px;
+        font-size: 1.05rem;
+        padding: 0.45rem 1rem;
+        border-radius: 8px;
         letter-spacing: 0.05em;
-        margin-top: 0.5rem;
-        margin-bottom: 0.8rem;
+        margin-top: 0.6rem;
+        margin-bottom: 0.9rem;
+        box-shadow: 0 4px 16px rgba(220, 38, 38, 0.35);
     }
+
+    .signature-rule-badge-authorized {
+        display: inline-block;
+        background: linear-gradient(135deg, #16A34A 0%, #15803D 100%);
+        color: #FFFFFF;
+        font-weight: 800;
+        font-size: 1.05rem;
+        padding: 0.45rem 1rem;
+        border-radius: 8px;
+        letter-spacing: 0.05em;
+        margin-top: 0.6rem;
+        margin-bottom: 0.9rem;
+        box-shadow: 0 4px 16px rgba(22, 163, 74, 0.35);
+    }
+
     .dimension-badge {
-        padding: 0.25rem 0.6rem;
-        border-radius: 4px;
-        font-weight: 600;
-        font-size: 0.85rem;
+        display: inline-flex;
+        align-items: center;
+        padding: 0.28rem 0.75rem;
+        border-radius: 9999px;
+        font-weight: 700;
+        font-size: 0.78rem;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        border: 1px solid;
     }
+
     .badge-confirmed {
-        background-color: #DCFCE7;
+        background: rgba(220, 252, 231, 0.85);
         color: #15803D;
+        border-color: rgba(34, 197, 94, 0.4);
+        box-shadow: 0 2px 6px rgba(34, 197, 94, 0.15);
     }
+
     .badge-missing {
-        background-color: #FEF3C7;
+        background: rgba(254, 243, 199, 0.85);
         color: #B45309;
+        border-color: rgba(245, 158, 11, 0.4);
+        box-shadow: 0 2px 6px rgba(245, 158, 11, 0.15);
     }
+
     .badge-contradicted {
-        background-color: #FEE2E2;
+        background: rgba(254, 226, 226, 0.85);
         color: #B91C1C;
+        border-color: rgba(239, 68, 68, 0.4);
+        box-shadow: 0 2px 6px rgba(239, 68, 68, 0.15);
     }
+
     .rag-chunk-card {
-        background-color: #F8FAFC;
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border: 1px solid rgba(226, 232, 240, 0.9);
         border-left: 4px solid #3B82F6;
-        border-radius: 6px;
-        padding: 1rem;
-        margin-bottom: 0.8rem;
+        border-radius: 10px;
+        padding: 1.15rem;
+        margin-bottom: 0.9rem;
+        box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.05);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .rag-chunk-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px -4px rgba(59, 130, 246, 0.18);
+    }
+
+    /* Primary button sleek gradient & glow */
+    div[data-testid="stButton"] button {
+        background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%) !important;
+        color: #FFFFFF !important;
+        border: none !important;
+        border-radius: 10px !important;
+        padding: 0.65rem 1.25rem !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.03em !important;
+        box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35) !important;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+
+    div[data-testid="stButton"] button:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 10px 24px rgba(37, 99, 235, 0.45) !important;
+    }
+
+    /* Modern Tabs */
+    div[data-baseweb="tab-list"] {
+        gap: 0.5rem;
+        padding: 0.3rem;
+        background: rgba(241, 245, 249, 0.6);
+        border-radius: 12px;
+        border: 1px solid rgba(226, 232, 240, 0.8);
+    }
+
+    button[data-baseweb="tab"] {
+        border-radius: 8px !important;
+        font-weight: 600 !important;
+        transition: all 0.2s ease !important;
     }
     </style>
     """,
@@ -319,7 +466,12 @@ st.sidebar.caption("Case Manager ➔ FastMCP Investigators ➔ Safety Critic ➔
 # =========================================================================
 st.markdown('<div class="main-header">Project Awaaz: Case Resolution & Governance</div>', unsafe_allow_html=True)
 st.markdown(
-    '<div class="sub-header">Multi-Agent Observability Trace • ChromaDB Vector RAG • Deterministic Policy Governance</div>',
+    """
+    <div class="sub-header">
+        <span>Multi-Agent Observability Trace • ChromaDB Vector RAG • Deterministic Policy Governance</span>
+        <span class="track-pill"><span class="track-dot"></span> Track 04: Smart Infrastructure &amp; AI</span>
+    </div>
+    """,
     unsafe_allow_html=True,
 )
 
@@ -497,9 +649,23 @@ with tab_canonical:
             st.success("✅ ESCALATION AUTHORIZED")
             st.markdown(
                 """
-                > **Adjudicator Clearance:** All required dimensions have been corroborated with zero hard contradictions
-                > or adversarial anomalies. Case has been authorized and queued for human adjudicator review.
-                """
+                <div class="signature-card-authorized">
+                    <div style="font-size: 0.85rem; font-weight: 700; color: #166534; text-transform: uppercase; letter-spacing: 0.08em;">
+                        Deterministic Policy Engine • Rule 5 Satisfied
+                    </div>
+                    <div class="signature-rule-badge-authorized">
+                        CLEARED FOR HUMAN ADJUDICATION
+                    </div>
+                    <div style="font-size: 1.12rem; font-weight: 600; color: #14532D; margin-top: 0.3rem;">
+                        All Required Dimensions Corroborated • 0 Contradictions • 0 Injections
+                    </div>
+                    <div style="font-size: 0.95rem; color: #166534; margin-top: 0.8rem; line-height: 1.5;">
+                        <strong>Adjudicator Clearance:</strong> Evidence package validated across all cross-source planes.
+                        Case has been formally cleared and prioritized for human case officer review.
+                    </div>
+                </div>
+                """,
+                unsafe_allow_html=True,
             )
 
             st.markdown("#### 📋 Corroborated Evidence Dimensions")
