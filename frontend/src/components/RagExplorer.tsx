@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Search, Database, Layers } from 'lucide-react'
 import type { RagResultItem } from '../types'
+import { apiUrl } from '../api'
 
 export const RagExplorer: React.FC = () => {
   const [query, setQuery] = useState('Patna Junction Railway platform departure')
@@ -15,7 +16,7 @@ export const RagExplorer: React.FC = () => {
   const handleSearch = async () => {
     setLoading(true)
     try {
-      const res = await fetch('/api/rag/search', {
+      const res = await fetch(apiUrl('/api/rag/search'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -40,7 +41,7 @@ export const RagExplorer: React.FC = () => {
       return
     }
     try {
-      const res = await fetch('/api/rag/documents')
+      const res = await fetch(apiUrl('/api/rag/documents'))
       const data = await res.json()
       setAllDocs(data.documents || [])
       setShowAllDocs(true)

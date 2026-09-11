@@ -11,6 +11,7 @@ import {
 } from 'lucide-react'
 
 import type { CaseOption, InvestigateResponse } from './types'
+import { apiUrl } from './api'
 import { GraphVisualizer } from './components/GraphVisualizer'
 import { UncertaintyBudgetView } from './components/UncertaintyBudgetView'
 import { OutcomeCard } from './components/OutcomeCard'
@@ -33,7 +34,7 @@ export const App: React.FC = () => {
 
   // Fetch initial cases & mode
   useEffect(() => {
-    fetch('/api/cases')
+    fetch(apiUrl('/api/cases'))
       .then((res) => res.json())
       .then((data) => {
         if (data.cases) {
@@ -42,7 +43,7 @@ export const App: React.FC = () => {
       })
       .catch((err) => console.error('Failed to load cases:', err))
 
-    fetch('/api/mode')
+    fetch(apiUrl('/api/mode'))
       .then((res) => res.json())
       .then((data) => {
         setEngineMode(data.mode)
@@ -54,7 +55,7 @@ export const App: React.FC = () => {
 
   const handleToggleMode = async (newMode: string) => {
     try {
-      const res = await fetch('/api/mode', {
+      const res = await fetch(apiUrl('/api/mode'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ mode: newMode }),
@@ -73,7 +74,7 @@ export const App: React.FC = () => {
     setActiveStepIndex(null)
 
     try {
-      const res = await fetch('/api/investigate', {
+      const res = await fetch(apiUrl('/api/investigate'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ case_selection: selectedCase.label }),

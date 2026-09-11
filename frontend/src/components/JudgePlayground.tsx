@@ -3,6 +3,7 @@ import { FlaskConical, AlertTriangle, Play, Bug, Sparkles, Clock, AlertOctagon }
 import { GraphVisualizer } from './GraphVisualizer'
 import { OutcomeCard } from './OutcomeCard'
 import { UncertaintyBudgetView } from './UncertaintyBudgetView'
+import { apiUrl } from '../api'
 
 export const JudgePlayground: React.FC = () => {
   const [intakeText, setIntakeText] = useState('Subject last seen at Patna Junction traveling to Ranchi on 2026-09-01.')
@@ -24,7 +25,7 @@ export const JudgePlayground: React.FC = () => {
         return
       }
       try {
-        const res = await fetch('/api/security/scan', {
+        const res = await fetch(apiUrl('/api/security/scan'), {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ text: intakeText }),
@@ -45,7 +46,7 @@ export const JudgePlayground: React.FC = () => {
     setActiveStepIndex(null)
 
     try {
-      const res = await fetch('/api/custom-investigate', {
+      const res = await fetch(apiUrl('/api/custom-investigate'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
