@@ -14,3 +14,10 @@ secrets/
 *.key
 credentials.json
 token.json
+
+# Frontend / Node artifacts
+node_modules/
+.next/
+out/
+build/
+*.tsbuildinfo
