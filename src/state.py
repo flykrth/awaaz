@@ -110,6 +110,22 @@ class UncertaintyBudget(RootModel[Dict[DimensionName, EvidenceDimension]]):
         })
 
 
+def calculate_entropy(budget: UncertaintyBudget) -> float:
+    """Calculates case uncertainty entropy bounded between 0.0 (fully resolved) and 1.0 (unresolved).
+
+    Measures the degree of uncorroborated evidence across all required dimensions.
+    """
+    required_dims = [dim for dim in budget.values() if dim.required]
+    if not required_dims:
+        return 0.0
+    total_confidence = sum(
+        dim.confidence if dim.status == "CONFIRMED" else 0.0
+        for dim in required_dims
+    )
+    resolved_ratio = total_confidence / len(required_dims)
+    return max(0.0, min(1.0, round(1.0 - resolved_ratio, 3)))
+
+
 class CaseState(BaseModel):
     """Full LangGraph state for Project Awaaz case resolution agent."""
 
@@ -121,3 +137,5 @@ class CaseState(BaseModel):
     required_user_input_missing: bool = False
     history: List[str] = Field(default_factory=list)
     terminal_state: Optional[str] = None
+    uncertainty_entropy: float = 1.0
+    entropy_history: List[float] = Field(default_factory=list)

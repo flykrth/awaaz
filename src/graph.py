@@ -10,7 +10,7 @@ from src.agents.investigators import (
 )
 from src.agents.safety_critic import safety_critic_node
 from src.policy_engine import evaluate_policy
-from src.state import CaseState
+from src.state import CaseState, calculate_entropy
 
 
 def policy_eval_node(state: CaseState) -> Dict[str, Any]:
@@ -24,9 +24,13 @@ def policy_eval_node(state: CaseState) -> Dict[str, Any]:
     """
     decision = evaluate_policy(state)
     history_entry = f"Policy Eval: Policy evaluated with terminal state '{decision}'"
+    cur_entropy = calculate_entropy(state.uncertainty_budget)
+    entropy_hist = list(state.entropy_history) + [cur_entropy]
     return {
         "terminal_state": decision,
         "history": list(state.history) + [history_entry],
+        "uncertainty_entropy": cur_entropy,
+        "entropy_history": entropy_hist,
     }
 
 

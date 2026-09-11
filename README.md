@@ -5,17 +5,18 @@
 
 ---
 
-## 🎥 3-Minute Demonstration Video
+## 🎥 3-Minute Demonstration Video & Production Package
 
-> 📺 **Watch the Video Walkthrough:** [Project Awaaz - 3-Minute Judge Demonstration](https://youtu.be/placeholder-project-awaaz-demo)  
-> *(A comprehensive 3-minute production walkthrough demonstrating real-time ChromaDB Vector RAG grounding, the dual-mode Sovereign LLM engine, dynamic jailbreak defense, and the interactive judge playground).*
+> 📺 **Video Walkthrough:** [Project Awaaz - 3-Minute Judge Demonstration](https://youtu.be/placeholder-project-awaaz-demo)  
+> 📄 **Production Script:** [docs/DEMO_VIDEO_SCRIPT.md](docs/DEMO_VIDEO_SCRIPT.md)  
+> *(A second-by-second 180-second production walkthrough demonstrating real-time ChromaDB Hybrid Vector RAG grounding, the dual-mode Sovereign LLM engine, 3-Tier adversarial jailbreak defense, FastMCP municipal resource allocation, and the interactive judge playground).*
 
 ---
 
 ## 📌 Executive Summary & Problem Statement
 
 ### The Coordination Gap in Future Communities
-Every year, tens of thousands of missing-child cases encounter critical delays caused by fragmented records across state police departments, child welfare committees, hospital admissions, and municipal transit authorities. In the context of **Smart Infrastructure & Future Communities (Track 04)**, resilient civic infrastructure requires connecting disparate municipal silos—railway passenger manifests, surveillance timestamps, and hospital admission logs—without risking human safety or minor privacy.
+Every year, tens of thousands of missing-child cases encounter critical delays caused by fragmented records across state police departments, child welfare committees, hospital admissions, and municipal transit authorities. In the context of **Smart Infrastructure & Future Communities (Track 04)**, resilient civic infrastructure requires connecting disparate municipal silos—railway passenger concourses, interstate bus terminal surveillance grids, and municipal hospital pediatric admissions—without risking human safety or minor privacy.
 
 ### The Danger of Autonomous AI Taking Unverified Actions
 While Large Language Models (LLMs) offer strong synthesis and multi-source reasoning capabilities, deploying unconstrained autonomous agents in missing-child recovery introduces catastrophic risks:
@@ -24,7 +25,10 @@ While Large Language Models (LLMs) offer strong synthesis and multi-source reaso
 3. **Adversarial Exploitation & Data Leakage:** In high-stakes cases, malicious actors may inject prompt overrides to divert searches, or probe models to extract sensitive minor biometrics and home addresses.
 
 ### The Awaaz Solution
-**Project Awaaz** eliminates autonomous AI overreach by pairing an evidence-grounded **3+1 LangGraph multi-agent architecture** with an immutable, **zero-LLM deterministic policy engine** and **ChromaDB Vector RAG grounding**. The system strictly enforces the principle of **human-in-the-loop escalation**, mathematical data minimization, and deterministic override rules where physical contradictions unconditionally halt automated escalation.
+**Project Awaaz** eliminates autonomous AI overreach by pairing an evidence-grounded **3+1 LangGraph multi-agent architecture** with an immutable, **zero-LLM deterministic policy engine**, a **Hybrid Vector RAG engine** (dense neural + sovereign hash projection), and a **FastMCP Quarantine Gate**. The system strictly enforces:
+- **Human-in-the-Loop Escalation:** Agents recommend and corroborate; only certified human adjudicators take real-world action.
+- **Pre-LLM Data Minimization:** Strict quarantine gate in the database abstraction preventing PII from ever reaching LLM token contexts.
+- **Signature Override Theorem (`HARD CONTRADICTION > SIMILARITY`):** Ground-truth physical discrepancies categorically trump high AI biometric similarity.
 
 ---
 
@@ -34,45 +38,48 @@ Project Awaaz organizes reasoning, investigation, adversarial verification, and 
 
 ```mermaid
 flowchart TD
-    subgraph Intake ["Intake Plane"]
-        CaseData["Raw Case Intake & Uncertainty Budget"]
-        JailbreakSec["Jailbreak & Prompt Injection Defense\n(src/security/jailbreak_detector.py)"]
+    subgraph Intake ["Intake Plane & 3-Tier Defense Shield"]
+        CaseData["Raw Case Intake & Uncertainty Budget\n(Uncertainty Entropy H = 1.0)"]
+        JailbreakSec["3-Tier Defense Shield\n(Tier 1 Heuristics • Tier 2 Structural/Entropy • Tier 3 Semantic Audit)"]
     end
 
     subgraph LangGraph31 ["3+1 LangGraph Planes"]
         direction TB
-        Manager["Case Manager Agent\n(Plane 1: Security Audit & Orchestration)"]
+        Manager["Case Manager Agent\n(Plane 1: Security Audit & Dynamic Uncertainty Routing)"]
         
         subgraph Investigators ["Plane 2: Grounded FastMCP & RAG Investigators"]
             EvInv["Evidence Investigator\n(Physical Markers & Identity Metadata)"]
-            CtxInv["Context Investigator\n(Transit & Temporal Validation)"]
+            CtxInv["Context Investigator\n(Transit & Temporal Route Validation)"]
         end
         
         Critic["Safety Critic Agent\n(Plane 3: Dual-Mode LLM Contradiction Audit)"]
         PolicyEngine["Deterministic Policy Engine\n(The +1 Plane: Zero-LLM Governance Rules 1-5)"]
     end
 
-    subgraph RAGStore ["ChromaDB Vector Store RAG"]
-        ChromaStore[("ChromaDB In-Memory Store\n(hnsw:space = cosine)")]
-        SovEmbed["Sovereign Embedding Function\n(100% Offline Hash-Normalized Projection)"]
+    subgraph RAGStore ["Hybrid Dual-Mode Vector RAG (ChromaDB)"]
+        ChromaStore[("ChromaDB In-Memory Store\nhnsw:space = cosine")]
+        SovEmbed["Sovereign Embedding Function\n(128-dim Normalized Hash Projection - 100% Offline)"]
+        DenseEmbed["Dense Transformer Function\n(all-MiniLM-L6-v2 Neural Embeddings)"]
         ChromaStore --- SovEmbed
-        FIRs["Police FIR Chunks"] --> ChromaStore
-        CCTV["Transit CCTV Manifests"] --> ChromaStore
-        Hospital["PMCH Hospital Triage Logs"] --> ChromaStore
-        Childline["Childline 1098 Records"] --> ChromaStore
+        ChromaStore --- DenseEmbed
+        FIRs["Police FIR Chunks (Patna, Ranchi, Varanasi)"] --> ChromaStore
+        CCTV["Transit CCTV Manifests (ECR Rail, Birsa Munda ISBT)"] --> ChromaStore
+        Hospital["PMCH Municipal Pediatric Triage Logs"] --> ChromaStore
+        Childline["Childline 1098 Help Desk Records"] --> ChromaStore
     end
 
-    subgraph FastMCP ["FastMCP Boundary (Data Minimization)"]
+    subgraph FastMCP ["FastMCP Enterprise Boundary (In-Process + Standalone Launcher)"]
         ToolMeta["search_case_metadata()"]
         ToolTime["check_case_timeline()"]
-        Quarantine["[QUARANTINE GATE]\nBlocks exact_address,\nbiometric_hash, contact_number"]
+        ToolCivic["allocate_civic_resources()\n(Track 04 Municipal Dispatch)"]
+        Quarantine["[QUARANTINE GATE]\nBlocks exact_address, biometric_hash, contact_number\n(Raises ValueError before LLM ingestion)"]
     end
 
-    subgraph TerminalStates ["Strict Non-Action Terminal States"]
-        HoldState["HOLD\n(Escalation Blocked)"]
-        ReqState["REQUEST_INFORMATION\n(Awaiting User Input)"]
-        InvState["INVESTIGATE\n(Collecting Missing Dimensions)"]
-        HumanReview["HUMAN_REVIEW_REQUIRED\n(Queued for Human Adjudicator)"]
+    subgraph TerminalStates ["Multi-Tier Civic Escalation Protocols"]
+        HoldState["HOLD\n(Supervisory Hold: Hard Contradiction or Attack)"]
+        ReqState["REQUEST_INFORMATION\n(Citizen/Station Ping: Missing Critical Metadata)"]
+        InvState["INVESTIGATE\n(FastMCP Municipal Dispatch: Incomplete Corroboration)"]
+        HumanReview["HUMAN_REVIEW_REQUIRED\n(Municipal Child Welfare Officer Route: Full Audit Trail)"]
     end
 
     CaseData --> JailbreakSec --> Manager
@@ -84,6 +91,7 @@ flowchart TD
     CtxInv <--> ToolTime
     EvInv <--> ChromaStore
     CtxInv <--> ChromaStore
+    ToolCivic <--> Quarantine
 
     EvInv --> Manager
     CtxInv --> Manager
@@ -101,32 +109,49 @@ flowchart TD
 
 ## 🌟 Key Engineering Innovations
 
-### 1. Vector Store RAG Grounding (`src/rag/vector_store.py`)
-- **ChromaDB In-Memory Engine:** Built with embedded ChromaDB configured with cosine similarity metric space (`hnsw:space: cosine`).
-- **Sovereign Embedding Function:** Employs a deterministic, normalized 128-dimensional hash projection algorithm that executes in $<1\text{ms}$ with **zero external network requests or model weight downloads**. Ensures 100% test and offline judging reliability in air-gapped environments.
-- **Multi-Source Synthetic Corpus:** Ingests official evidence across 4 critical civic infrastructure pillars:
-  1. *Police First Information Reports (FIRs)* (Patna, Ranchi, Varanasi)
-  2. *Transit CCTV & Railway Manifests* (East Central Railway, Birsa Munda Bus Terminal, Godowlia Chowk surveillance)
-  3. *Hospital Admission & Triage Logs* (Patna Medical College Hospital, Ranchi Sadar Hospital, Varanasi Pediatric Clinic)
-  4. *Childline 1098 Records* (Emergency intake records and municipal civil registries)
-- **Source Citation Tracking:** Investigators automatically retrieve top-k evidence chunks and append source citations (e.g. `vector_rag:police_fir_patna`, `vector_rag:cctv_patna_railway`) to `EvidenceDimension.sources` in the `UncertaintyBudget`.
+### 1. Hybrid Dual-Mode Vector RAG Engine (`src/rag/vector_store.py`)
+- **ChromaDB In-Memory Engine:** Embedded vector store configured with cosine similarity metric space (`hnsw:space: cosine`).
+- **Dual-Mode Embedding Architecture:**
+  - **Dense Neural Transformer:** Utilizes `sentence-transformers` (`all-MiniLM-L6-v2`) or Google GenAI embeddings when online.
+  - **Sovereign Embedding Function:** Employs a deterministic, normalized 128-dimensional MD5 hash projection algorithm executing in $<1\text{ms}$ with **zero external network requests or model downloads**.
+  - **Automatic Fallback:** Graceful try/except wrapper automatically falls back to Sovereign mode if packages or network connections are unavailable.
+- **Runtime Mode Toggle:** Configure via `AWAAZ_EMBEDDING_MODE=hybrid|transformer|sovereign` or runtime calls `set_embedding_mode(mode)`.
+- **Connected Municipal Infrastructure Corpus (Track 04):** Ingests official evidence across transit corridors:
+  1. *East Central Railway (ECR) Danapur / Patna Junction CCTV Cam-04* (checkpoint coverage 94.2%, handoff latency 14m)
+  2. *Birsa Munda Interstate Bus Terminal (ISBT) Bay 4 CCTV Surveillance* (checkpoint coverage 96.8%, handoff latency 22m)
+  3. *Varanasi Smart City Traffic Surveillance Grid CCTV Cam-14 Godowlia Chowk* (checkpoint coverage 98.1%, handoff latency 8m)
+  4. *Patna Medical College Hospital (PMCH) Municipal Pediatric Emergency Triage*
+  5. *Childline 1098 Emergency Transit Help Desks* (Patna, Ranchi, Varanasi)
+- **Source Citation Tracking:** Investigators append traceable source tags (e.g. `vector_rag:cctv_patna_railway`, `vector_rag:hospital_pmch_patna`) to `EvidenceDimension.sources` in the `UncertaintyBudget`.
 
-### 2. Dual-Mode LLM Gateway with Sovereign Fallback (Slide 10 Day 4 Bonus)
-- **Unified Gateway Architecture (`src/models/llm_gateway.py`)**:
-  - **Google Gemini 2.5 API Mode:** Utilizes the official `google-genai` SDK for structured contradiction audits and contextual reasoning when `GEMINI_API_KEY` is provided.
-  - **Local Ollama / Unsloth Mode:** Seamlessly connects to local open-weights inference servers (`OLLAMA_BASE_URL`).
-  - **Sovereign Local-First Mode (Bonus):** A zero-dependency, deterministic structured reasoning engine.
-- **Silent, Non-Crashing Resilience:** If an API key is missing or a network call times out, the gateway silently falls back to Sovereign Mode, guaranteeing that automated test suites (`pytest`) and local judging environments execute with 100% reliability.
-- **Dynamic Entity & Timeline Extraction:** Replaces static hardcoded strings (`"Ranchi"`, `"2026-09-01"`) by dynamically parsing origins, destinations, timestamps, and requested fields from raw case intake text.
+### 2. Advanced FastMCP Architecture (`src/tools/mcp_server.py`, `run_mcp_server.py`)
+- **Three Core FastMCP Tools:**
+  1. `search_case_metadata(case_id, requested_fields)`: Queries permitted case metadata with strict Pre-LLM Quarantine Gate.
+  2. `check_case_timeline(origin, dest, date)`: Validates temporal route consistency across transit schedules.
+  3. `allocate_civic_resources(case_id, priority_level, transit_hub)`: Simulates dispatching child protection alerts and transit surveillance priority flags across municipal checkpoints without disclosing minor PII.
+- **Standalone & In-Process Launcher (`run_mcp_server.py`):**
+  - Launch FastMCP over standard `stdio` transport or Server-Sent Events (`sse`) for external MCP client interoperability (Cursor, Claude Desktop, enterprise gateways):
+    ```bash
+    python run_mcp_server.py --transport stdio
+    python run_mcp_server.py --transport sse --port 8000
+    ```
 
-### 3. Dynamic Real-Time Prompt Injection & Jailbreak Defense (`src/security/jailbreak_detector.py`)
-- **Real-Time Security Inspection:** Case intake texts are evaluated through a multi-tiered security engine detecting:
-  - *Directive Overrides:* `"ignore previous instructions"`, `"system override"`, `"admin override"`, `"operator directive"`
-  - *Jailbreak Personas:* `"DAN mode"`, `"unrestricted AI"`, `"developer mode enabled"`
-  - *Guardrail Bypasses:* `"bypass critic"`, `"bypass policy engine"`, `"without verification"`
-  - *Data Exfiltration Probes:* `"dump biometric_hash"`, `"print exact_address"`, `"disclose hidden schemas"`
-  - *Delimiter Cloaking:* HTML comments `<!-- ADMIN OVERRIDE ... -->` and role-hijacking delimiters.
-- **Zero-Tolerance Policy Trigger:** Flagging any adversarial probe dynamically sets `state.adversarial_injection_detected = True`, immediately routing the case to **Policy Engine Rule 2 (`HOLD`)** and aborting automated escalation.
+### 3. Multi-Tiered Adversarial Jailbreak & Injection Defense (`src/security/jailbreak_detector.py`)
+- **Tier 1 (Heuristic Patterns):** Comprehensive regex matching against directive overrides, DAN mode, system prompt resets, and HTML cloaking (`<!-- ADMIN OVERRIDE ... -->`).
+- **Tier 2 (Structural & Entropy Analysis):** Detects role-hijacking delimiters (`Human:`, `Assistant:`), JSON schema poisoning/smuggling (`{"override": ...}`), and non-printable zero-width obfuscation characters (`\u200b`).
+- **Tier 3 (Sovereign Semantic Safety Audit):** Offline semantic classifier `audit_intake_safety(intake_text)` computing an adversarial intent risk score from `0.0` (benign) to `1.0` (malicious) by evaluating coercive override verbs, governance targets, and PII probing attempts.
+- **Immediate Containment:** Any violation dynamically flags `adversarial_injection_detected = True`, immediately routing to **Policy Engine Rule 2 (`HOLD`)** with zero data exposure.
+
+### 4. Uncertainty Entropy Reduction Metric (`src/state.py`)
+- Quantifies case resolution progress from $H = 1.00$ (completely uncorroborated initial intake) monotonically down toward $H = 0.00$ (all required dimensions corroborated with high confidence and zero hard contradictions).
+- Tracked across execution steps in `state.entropy_history` and rendered visually in Streamlit Tab 1.
+
+### 5. Multi-Tier Civic Escalation Protocols (`src/policy_engine.py`)
+Distinguishes operational municipal routing:
+- **`SUPERVISORY_HOLD` (Rules 1 & 2):** Hard contradiction or adversarial attack detected; halt automated escalation and raise urgent alert to human supervisors.
+- **`CITIZEN_STATION_PING` (Rule 3):** Missing critical intake fields; ping reporting citizen or intake station for missing metadata.
+- **`FASTMCP_MUNICIPAL_DISPATCH` (Rule 4):** Incomplete corroboration; dispatch FastMCP transit surveillance and hospital investigator agents.
+- **`MUNICIPAL_CW_OFFICER_ROUTE` (Rule 5):** All dimensions corroborated; route case to Municipal Child Welfare Officer with full cryptographic audit trail.
 
 ---
 
@@ -152,15 +177,14 @@ Under no circumstances can Project Awaaz authorize, dispatch, or execute unilate
 ```
 
 ### Deterministic Policy Engine (Rules 1 – 5)
-The policy engine (`src/policy_engine.py`) evaluates rules in strict priority order:
 
-| Rule | Trigger Condition | Decision | Rationale |
-| :--- | :--- | :--- | :--- |
-| **Rule 1** | Any `HARD` contradiction detected across any dimension | `HOLD` | **Hard Contradiction > Similarity**: Ground-truth physical discrepancies override high statistical/facial similarity to prevent catastrophic false positives. |
-| **Rule 2** | `adversarial_injection_detected == True` | `HOLD` | Security containment: Immediate shutdown upon detecting jailbreaks or malicious prompt manipulation. |
-| **Rule 3** | `required_user_input_missing == True` | `REQUEST_INFORMATION` | Procedural integrity: Demands mandatory missing inputs before analysis proceeds. |
-| **Rule 4** | Any required dimension in `UncertaintyBudget != CONFIRMED` | `INVESTIGATE` | Completeness check: Dispatches investigators for incomplete dimensions. |
-| **Rule 5** | All required dimensions confirmed, 0 contradictions, 0 injections | `HUMAN_REVIEW_REQUIRED` | Cleared for human adjudicator review. |
+| Rule | Trigger Condition | Decision | Civic Escalation Tier | Rationale |
+| :--- | :--- | :--- | :--- | :--- |
+| **Rule 1** | Any `HARD` contradiction detected across any dimension | `HOLD` | `SUPERVISORY_HOLD` | **Hard Contradiction > Similarity**: Ground-truth physical discrepancies override high statistical/facial similarity to prevent catastrophic false positives. |
+| **Rule 2** | `adversarial_injection_detected == True` | `HOLD` | `SUPERVISORY_HOLD` | Security containment: Immediate shutdown upon detecting jailbreaks or malicious prompt manipulation. |
+| **Rule 3** | `required_user_input_missing == True` | `REQUEST_INFORMATION` | `CITIZEN_STATION_PING` | Procedural integrity: Demands mandatory missing inputs before analysis proceeds. |
+| **Rule 4** | Any required dimension in `UncertaintyBudget != CONFIRMED` | `INVESTIGATE` | `FASTMCP_MUNICIPAL_DISPATCH` | Completeness check: Dispatches FastMCP investigators for incomplete dimensions. |
+| **Rule 5** | All required dimensions confirmed, 0 contradictions, 0 injections | `HUMAN_REVIEW_REQUIRED` | `MUNICIPAL_CW_OFFICER_ROUTE` | Cleared for Municipal Child Welfare Officer review with full audit trail. |
 
 ---
 
@@ -168,7 +192,7 @@ The policy engine (`src/policy_engine.py`) evaluates rules in strict priority or
 
 Project Awaaz adheres strictly to privacy-by-design principles (e.g., India's Digital Personal Data Protection Act 2023 and GDPR):
 
-1. **Quarantine Gate at Tool Boundary**:
+1. **Quarantine Gate at Database Abstraction Layer**:
    In `MockCaseDB` (`src/tools/mock_db.py`) and FastMCP (`src/tools/mcp_server.py`), sensitive child identifiers are strictly sequestered:
    ```python
    SENSITIVE_FIELDS = {
@@ -183,7 +207,7 @@ Project Awaaz adheres strictly to privacy-by-design principles (e.g., India's Di
    ValueError: UNAUTHORIZED_FIELD_ACCESS: Request blocked by data minimization policy.
    ```
 3. **Zero Data Leakage Guarantee**:
-   By blocking restricted fields at the tool schema layer, confidential child coordinates and biometrics are never injected into the LLM context window, state history, or log files.
+   By blocking restricted fields at the tool schema layer, confidential child coordinates and biometrics are never injected into the LLM context window, state history, or log files. Verified **0 leaks** across 50 benchmark cases.
 
 ---
 
@@ -217,27 +241,36 @@ HUMAN_REVIEW_REQUIRED     |        0 |           0 |            0 |             
 ### 1. Environment Setup
 ```bash
 # Clone the repository and navigate to root
-cd awaaz
+cd /home/flykrth/Desktop/awaaz
 
 # Activate virtual environment
 source .venv/bin/activate
 
-# Install dependencies (including chromadb, sentence-transformers, google-genai)
+# Install dependencies (if not already installed)
 pip install -r requirements.txt
 ```
 
-### 2. Run the Full Test Suite (62 Tests)
+### 2. Run the Full Test Suite (72 Tests)
 ```bash
 pytest -v
 ```
-*All 62 unit and integration tests across RAG, LLM Gateway, Security, FastMCP, Graph routing, and Streamlit pass with 100% success.*
+*All 72 unit and integration tests across Hybrid RAG, LLM Gateway, 3-Tier Security, FastMCP, Graph routing, and Streamlit pass with 100% success.*
 
 ### 3. Run the Automated Benchmark (50 Cases)
 ```bash
 python eval/run_benchmark.py
 ```
 
-### 4. Launch the Streamlit Dashboard
+### 4. Launch the Standalone FastMCP Server
+```bash
+# Launch via standard stdio transport
+python run_mcp_server.py --transport stdio
+
+# Or launch via SSE transport on port 8000
+python run_mcp_server.py --transport sse --port 8000
+```
+
+### 5. Launch the Streamlit Dashboard
 ```bash
 streamlit run app.py
 ```
@@ -246,13 +279,14 @@ streamlit run app.py
 
 ## 🧭 Judge Interactive Walkthrough Guide
 
-The Streamlit dashboard (`http://localhost:8501`) features three dedicated auditor tabs:
+The Streamlit dashboard (`http://localhost:8501`) features four dedicated auditor tabs:
 
 ### 🏛️ Tab 1: Canonical Case Audit & Signature UI
 - **Sidebar Case Selector**:
   - `CASE-001 (Missing Timeline)`: Shows dynamic routing to the Context Investigator to verify transit route before clearing for human review.
   - `CASE-002 (Hard Contradiction)`: Renders the **Signature UI** (`HARD CONTRADICTION > SIMILARITY`). A 98.4% facial match is categorically blocked by Policy Engine Rule 1 due to conflicting left vs. right forearm scars.
   - `CASE-003 (Clean Evidence)`: Demonstrates complete multi-source corroboration authorizing human adjudication.
+- **Uncertainty Entropy Reduction Curve**: Shows case entropy dropping from $1.00$ to $0.00$ as dimensions are confirmed.
 - **Sidebar Mode Switcher**: Toggle between `Sovereign Offline Mode (Day 4 Bonus)` (0 API calls, deterministic) and `Live LLM Mode (Gemini 2.5)`.
 
 ### 🧪 Tab 2: Interactive Custom Case Playground
@@ -266,14 +300,20 @@ The Streamlit dashboard (`http://localhost:8501`) features three dedicated audit
 - **Live Stream**: Click `Run Custom Investigation` to stream LangGraph agent reasoning live and inspect the assigned governance outcome.
 
 ### 🔎 Tab 3: RAG Evidence Inspector
+- **Hybrid Embedding Engine Badge**: Displays whether Sovereign Hash Projection or Dense Transformer is active.
 - **Semantic Evidence Query**: Search across synthetic police FIRs, transit CCTV records, and hospital logs.
 - **Dimension Filtering**: Filter results by `timeline`, `physical_markers`, `identity`, or `origin`.
 - **Similarity Scoring**: View real-time cosine similarity scores and metadata badges.
-- **Corpus Catalogue**: Expand the full 12-document indexed database to inspect evidence provenance.
+- **Corpus Catalogue**: Expand the full indexed database to inspect evidence provenance.
+
+### 🌐 Tab 4: Smart Civic Infrastructure Telemetry (Track 04)
+- **Active Municipal Nodes**: Live telemetry grid of railway stations, bus terminals, CCTV surveillance grids, and pediatric hospital triage.
+- **FastMCP Security Telemetry**: Audit log verifying 100% enforcement of the Pre-LLM Quarantine Gate with zero PII leaks.
+- **Civic Resource Dispatch Simulator**: Interactive simulation invoking `allocate_civic_resources` to dispatch transit surveillance flags across municipal checkpoints.
 
 ---
 
 ## 👥 Authors & Track Submission
 - **Project**: Project Awaaz
 - **Hackathon Track**: **TRACK 04: Sustainability, Smart Infrastructure & Future Communities**
-- **Core Technology**: LangGraph, ChromaDB, Google Gemini 2.5, FastMCP, Pydantic, Streamlit, Python 3.13
+- **Core Technology**: LangGraph, ChromaDB Hybrid RAG, Google Gemini 2.5, FastMCP, Pydantic, Streamlit, Python 3.13

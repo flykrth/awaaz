@@ -106,3 +106,53 @@ def test_context_investigator_adds_vector_citations():
     assert updated_budget["timeline"].status == "CONFIRMED"
     assert "FastMCP.check_case_timeline" in updated_budget["timeline"].sources
     assert any(s.startswith("vector_rag:") for s in updated_budget["timeline"].sources)
+
+
+def test_hybrid_embedding_mode_switching():
+    """Verify runtime switching of embedding modes (sovereign, transformer, hybrid)."""
+    from src.rag.vector_store import (
+        get_active_embedding_function,
+        get_embedding_mode,
+        set_embedding_mode,
+    )
+
+    orig_mode = get_embedding_mode()
+    try:
+        set_embedding_mode("sovereign")
+        assert get_embedding_mode() == "sovereign"
+        fn_sov = get_active_embedding_function()
+        assert fn_sov.name() == "sovereign_embedding_function"
+
+        set_embedding_mode("transformer")
+        assert get_embedding_mode() == "transformer"
+        fn_dense = get_active_embedding_function()
+        assert fn_dense.name() == "dense_transformer_embedding_function"
+
+        set_embedding_mode("hybrid")
+        assert get_embedding_mode() == "hybrid"
+    finally:
+        set_embedding_mode(orig_mode)
+
+
+def test_dense_transformer_fallback_generates_embeddings():
+    """Verify DenseTransformerEmbeddingFunction generates embeddings via fallback safely."""
+    from src.rag.vector_store import DenseTransformerEmbeddingFunction
+
+    dense_fn = DenseTransformerEmbeddingFunction()
+    docs = ["Subject seen at Patna Junction", "Medical file confirms forearm scar"]
+    embeddings = dense_fn(docs)
+    assert len(embeddings) == 2
+    assert len(embeddings[0]) in (128, 384)
+
+
+def test_track_04_connected_municipal_infrastructure_corpus():
+    """Verify synthetic corpus contains connected municipal transit, CCTV, and pediatric health nodes."""
+    store = get_vector_store()
+    all_docs = store.get_all_documents()
+
+    source_ids = {d["source_id"] for d in all_docs}
+    assert "cctv_patna_railway" in source_ids
+    assert "cctv_ranchi_bus_stand" in source_ids
+    assert "cctv_godowlia_chowk" in source_ids
+    assert "hospital_pmch_patna" in source_ids
+    assert "rail_manifest_east_central" in source_ids

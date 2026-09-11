@@ -276,3 +276,53 @@ def test_pydantic_validation_guards():
                 confidence=0.5,
             )
         })
+
+
+def test_entropy_calculation_unresolved_to_resolved():
+    """Verify uncertainty entropy drops monotonically from 1.0 (unresolved) to 0.0 (resolved)."""
+    from src.state import calculate_entropy
+
+    # 1. Unresolved budget
+    unresolved_budget = UncertaintyBudget.default_budget()
+    assert calculate_entropy(unresolved_budget) == 1.0
+
+    # 2. Partially resolved budget (2 of 4 confirmed with 0.95 confidence)
+    partial_budget = UncertaintyBudget({
+        "identity": EvidenceDimension(required=True, status="CONFIRMED", confidence=0.95, sources=[]),
+        "timeline": EvidenceDimension(required=True, status="CONFIRMED", confidence=0.95, sources=[]),
+        "physical_markers": EvidenceDimension(required=True, status="MISSING", confidence=0.0, sources=[]),
+        "origin": EvidenceDimension(required=True, status="MISSING", confidence=0.0, sources=[]),
+    })
+    partial_entropy = calculate_entropy(partial_budget)
+    assert 0.45 <= partial_entropy <= 0.60
+
+    # 3. Fully resolved budget (all confirmed with 1.0 confidence)
+    clean_budget = _build_clean_budget(confidence=1.0)
+    assert calculate_entropy(clean_budget) == 0.0
+
+
+def test_policy_engine_multi_tier_civic_escalation_details():
+    """Verify explain_decision populates multi-tier civic escalation tier, action, and entropy."""
+    # Test HOLD civic escalation
+    state_hold = CaseState(
+        case_id="CASE-CIVIC-001",
+        raw_intake="Subject intake.",
+        uncertainty_budget=_build_clean_budget(),
+        adversarial_injection_detected=True,
+    )
+    explanation_hold = explain_decision(state_hold)
+    assert explanation_hold["decision"] == "HOLD"
+    assert explanation_hold["escalation_tier"] == "SUPERVISORY_HOLD"
+    assert "civic_action" in explanation_hold
+    assert "entropy" in explanation_hold
+
+    # Test HUMAN_REVIEW_REQUIRED civic escalation
+    state_hrr = CaseState(
+        case_id="CASE-CIVIC-002",
+        raw_intake="Clean verified intake.",
+        uncertainty_budget=_build_clean_budget(confidence=0.98),
+    )
+    explanation_hrr = explain_decision(state_hrr)
+    assert explanation_hrr["decision"] == "HUMAN_REVIEW_REQUIRED"
+    assert explanation_hrr["escalation_tier"] == "MUNICIPAL_CW_OFFICER_ROUTE"
+    assert "Child Welfare Officer" in explanation_hrr["civic_action"]
