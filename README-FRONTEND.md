@@ -56,18 +56,17 @@ npm run start
 
 ## ☁️ 1-Click Deployment to Vercel
 
-### Option A: Import via Vercel Dashboard (Recommended)
-1. Push this repository to GitHub / GitLab.
-2. Log into [Vercel](https://vercel.com) and click **"Add New Project"**.
-3. Import the repository.
-4. If prompted for **Root Directory**, enter `frontend` (or leave default if deploying with root `vercel.json`).
-5. Click **Deploy**. Vercel will automatically run the build and deploy to a live `.vercel.app` URL.
+In a monorepo or project where the Next.js frontend is located in `frontend/`, Vercel requires setting the **Root Directory** to `frontend`:
 
-### Option B: Deploy via Vercel CLI
-```bash
-npm i -g vercel
-vercel
-```
+### Step-by-Step Vercel Setup:
+1. Go to your project on the [Vercel Dashboard](https://vercel.com).
+2. Navigate to **Settings** > **General**.
+3. Under the **Root Directory** section, click **Edit**.
+4. Select or type: `frontend`.
+5. Click **Save**.
+6. Trigger a **Redeploy** (Deployments > click `...` > **Redeploy**).
+
+> **Why this is required:** Vercel looks for `package.json` in the specified Root Directory to detect Next.js. Setting the Root Directory to `frontend` ensures Vercel automatically detects Next.js 14, executes `npm install`, and runs `next build` with full Server Components and API route support.
 
 ---
 
