@@ -5,3 +5,6 @@ networkx>=3.0
 streamlit>=1.35.0
 scikit-learn>=1.5.0
 pytest
+chromadb>=0.4.0
+sentence-transformers>=2.2.0
+google-genai>=2.0.0

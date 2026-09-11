@@ -122,3 +122,21 @@ def test_streamlit_apptest_ui_workflow():
     assert len(at3.success) > 0
     assert "ESCALATION AUTHORIZED" in at3.success[0].value
     assert len(at3.json) > 0
+
+
+def test_streamlit_apptest_mode_switcher():
+    """Verifies that the sidebar mode switcher toggles without error."""
+    from pathlib import Path
+    from streamlit.testing.v1 import AppTest
+
+    app_path = Path(__file__).parent.parent / "app.py"
+    at = AppTest.from_file(str(app_path), default_timeout=15)
+    at.run()
+    assert not at.exception
+    assert len(at.sidebar.radio) > 0
+    # Toggle to Live LLM Mode
+    at.sidebar.radio[0].set_value("Live LLM Mode (Gemini 2.5)").run()
+    assert not at.exception
+    # Toggle back to Sovereign Mode
+    at.sidebar.radio[0].set_value("Sovereign Offline Mode (Day 4 Bonus)").run()
+    assert not at.exception
