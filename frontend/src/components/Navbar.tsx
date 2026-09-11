@@ -10,18 +10,23 @@ import {
   Lock,
   ExternalLink,
   Zap,
+  Key,
 } from "lucide-react";
 
 interface NavbarProps {
   engineMode: "sovereign" | "gemini";
   setEngineMode: (mode: "sovereign" | "gemini") => void;
   onOpenDataMinimization?: () => void;
+  apiKey?: string;
+  onOpenApiKeyModal?: () => void;
 }
 
 export function Navbar({
   engineMode,
   setEngineMode,
   onOpenDataMinimization,
+  apiKey,
+  onOpenApiKeyModal,
 }: NavbarProps) {
   return (
     <header className="sticky top-0 z-40 w-full border-b border-slate-800 bg-[#080D1A]/90 backdrop-blur-md">
@@ -82,6 +87,25 @@ export function Navbar({
             <span className="text-slate-400">System:</span>
             <span className="text-emerald-400 font-medium">Healthy (12ms)</span>
           </div>
+
+          {/* Gemini API Key Configuration Button */}
+          {onOpenApiKeyModal && (
+            <button
+              onClick={onOpenApiKeyModal}
+              className={`hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-lg border text-xs font-mono transition-colors ${
+                apiKey
+                  ? "bg-slate-900 border-trust-500/50 text-trust-300 hover:bg-slate-800"
+                  : "bg-slate-900 border-slate-700/80 text-slate-400 hover:text-slate-200 hover:bg-slate-800"
+              }`}
+              title="Configure Gemini API credentials or inspect dual-mode configuration"
+            >
+              <Key className="w-3.5 h-3.5 text-trust-400" />
+              <span>API Key:</span>
+              <span className={apiKey ? "text-emerald-400 font-semibold" : "text-slate-400"}>
+                {apiKey ? "Active" : "Not Set"}
+              </span>
+            </button>
+          )}
 
           {/* Engine Mode Switcher */}
           <div className="flex items-center bg-slate-900/90 p-1 rounded-xl border border-slate-800">

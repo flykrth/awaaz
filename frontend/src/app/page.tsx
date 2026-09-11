@@ -9,6 +9,8 @@ import { DataMinimizationDrawer } from "../components/DataMinimizationDrawer";
 import { EntropyReductionChart } from "../components/EntropyReductionChart";
 import { EvidenceInspector } from "../components/EvidenceInspector";
 import { HumanReviewModal } from "../components/HumanReviewModal";
+import { ChatbotInterface } from "../components/ChatbotInterface";
+import { ApiKeyModal } from "../components/ApiKeyModal";
 import { MOCK_CASES, MOCK_RESULTS } from "../lib/mockData";
 import { CaseDossier, InvestigationResult, LangGraphStep } from "../lib/types";
 import {
@@ -26,6 +28,8 @@ import {
   Sliders,
   ChevronRight,
   ExternalLink,
+  Bot,
+  Sparkles,
 } from "lucide-react";
 import { dispatchCivicResources, DispatchResponse } from "../lib/api";
 
@@ -33,8 +37,21 @@ export default function DashboardPage() {
   const [cases] = useState<CaseDossier[]>(Object.values(MOCK_CASES));
   const [selectedCaseId, setSelectedCaseId] = useState<string>("CASE-002"); // Default to CASE-002 to immediately highlight signature feature
   const [engineMode, setEngineMode] = useState<"sovereign" | "gemini">("sovereign");
+  const [apiKey, setApiKey] = useState<string>("");
+  const [isApiKeyModalOpen, setIsApiKeyModalOpen] = useState<boolean>(false);
   const [isDataMinimizationOpen, setIsDataMinimizationOpen] = useState<boolean>(false);
   const [isHumanReviewOpen, setIsHumanReviewOpen] = useState<boolean>(false);
+
+  // Read stored Gemini API Key on client mount
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedKey = localStorage.getItem("gemini_api_key") || "";
+      if (storedKey) {
+        setApiKey(storedKey);
+        setEngineMode("gemini");
+      }
+    }
+  }, []);
 
   // Investigation state
   const [isRunning, setIsRunning] = useState<boolean>(false);
@@ -50,9 +67,9 @@ export default function DashboardPage() {
   const [dispatchResponse, setDispatchResponse] = useState<DispatchResponse | null>(null);
   const [isDispatching, setIsDispatching] = useState<boolean>(false);
 
-  // Active view tab
-  const [activeTab, setActiveTab] = useState<"investigation" | "rag" | "civic">(
-    "investigation"
+  // Active view tab - default to 'chat' for the primary Agentic AI Chatbot interface
+  const [activeTab, setActiveTab] = useState<"chat" | "investigation" | "rag" | "civic">(
+    "chat"
   );
 
   // When selected case changes, update the result
@@ -104,6 +121,8 @@ export default function DashboardPage() {
         engineMode={engineMode}
         setEngineMode={setEngineMode}
         onOpenDataMinimization={() => setIsDataMinimizationOpen(true)}
+        apiKey={apiKey}
+        onOpenApiKeyModal={() => setIsApiKeyModalOpen(true)}
       />
 
       {/* Main Container */}
@@ -111,6 +130,21 @@ export default function DashboardPage() {
         {/* Navigation Tabs */}
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-3">
           <div className="flex items-center gap-2">
+            <button
+              onClick={() => setActiveTab("chat")}
+              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 ${
+                activeTab === "chat"
+                  ? "bg-gradient-to-r from-trust-600 to-indigo-600 text-white shadow-lg shadow-trust-600/30"
+                  : "bg-slate-900/60 text-slate-400 hover:text-slate-200 hover:bg-slate-800/60"
+              }`}
+            >
+              <Bot className="w-4 h-4 text-trust-300" />
+              <span>Agentic AI Assistant</span>
+              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-trust-500/20 text-trust-300 font-semibold border border-trust-500/30">
+                Primary
+              </span>
+            </button>
+
             <button
               onClick={() => setActiveTab("investigation")}
               className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 ${
@@ -158,6 +192,19 @@ export default function DashboardPage() {
             </button>
           </div>
         </div>
+
+        {/* Tab 0: Agentic AI Assistant (Primary Default Interface) */}
+        {activeTab === "chat" && (
+          <ChatbotInterface
+            apiKey={apiKey}
+            onOpenApiKeyModal={() => setIsApiKeyModalOpen(true)}
+            onNavigateToTab={(tab) => setActiveTab(tab)}
+            onOpenHumanReview={(caseId) => {
+              setSelectedCaseId(caseId);
+              setIsHumanReviewOpen(true);
+            }}
+          />
+        )}
 
         {/* Tab 1: Investigation & Governance Trace */}
         {activeTab === "investigation" && (
@@ -378,6 +425,23 @@ export default function DashboardPage() {
         isOpen={isHumanReviewOpen}
         onClose={() => setIsHumanReviewOpen(false)}
         caseId={selectedCaseId}
+      />
+
+      {/* Gemini API Key Configuration Modal */}
+      <ApiKeyModal
+        isOpen={isApiKeyModalOpen}
+        onClose={() => setIsApiKeyModalOpen(false)}
+        apiKey={apiKey}
+        onSaveKey={(key) => {
+          setApiKey(key);
+          if (key) {
+            localStorage.setItem("gemini_api_key", key);
+            setEngineMode("gemini");
+          } else {
+            localStorage.removeItem("gemini_api_key");
+            setEngineMode("sovereign");
+          }
+        }}
       />
     </div>
   );
