@@ -30,7 +30,7 @@ export function EvidenceInspector() {
             </h2>
           </div>
           <p className="text-xs text-slate-400 mt-0.5">
-            Connected Municipal Infrastructure Corpus (Track 04) with Dense Neural + Sovereign Hash Projection
+            Connected Municipal Infrastructure Corpus with Dense Neural + Sovereign Hash Projection
           </p>
         </div>
 

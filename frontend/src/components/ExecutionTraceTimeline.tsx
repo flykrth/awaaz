@@ -43,6 +43,23 @@ export function ExecutionTraceTimeline({
     return "border-emerald-500/50 bg-emerald-950/20 text-emerald-400";
   };
 
+  const getNodeIcon = (node: string) => {
+    switch (node) {
+      case "manager":
+        return <Compass className="w-4 h-4 text-blue-400" />;
+      case "context_inv":
+        return <Clock className="w-4 h-4 text-cyan-400" />;
+      case "evidence_inv":
+        return <Search className="w-4 h-4 text-cyan-400" />;
+      case "critic":
+        return <Scale className="w-4 h-4 text-amber-400" />;
+      case "policy_eval":
+        return <Shield className="w-4 h-4 text-emerald-400" />;
+      default:
+        return <Terminal className="w-4 h-4 text-slate-400" />;
+    }
+  };
+
   const getToolTypeBadge = (toolType: string) => {
     switch (toolType) {
       case "FastMCP":
@@ -133,7 +150,7 @@ export function ExecutionTraceTimeline({
                   {/* Step Meta Info Row */}
                   <div className="flex flex-wrap items-center justify-between gap-2 mb-2.5">
                     <div className="flex items-center gap-2">
-                      <span className="text-base">{s.icon}</span>
+                      {getNodeIcon(s.node)}
                       <h4 className="text-sm font-bold text-white flex items-center gap-2">
                         {s.title}
                         <span

@@ -83,7 +83,7 @@ export function DataMinimizationDrawer({
             <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
             <div className="text-xs text-slate-300 leading-relaxed">
               <strong className="text-white font-semibold">
-                Architecture Guarantee (Track 03 / Track 04):
+                Architecture Guarantee:
               </strong>{" "}
               In missing-child recovery, exposing residential addresses or biometric vectors to LLMs creates severe privacy and exploitation hazards. Project Awaaz places an immutable schema quarantine gate inside{" "}
               <code className="text-trust-300 font-mono">MockCaseDB.query_metadata()</code> and FastMCP tools, rejecting unauthorized queries with deterministic exceptions.

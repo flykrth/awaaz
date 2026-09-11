@@ -4,7 +4,7 @@ Supports Dual-Mode / Hybrid Embeddings:
 1. SovereignEmbeddingFunction: Deterministic 128-dim hash projection (100% offline, zero-network fallback).
 2. DenseTransformerEmbeddingFunction: Neural embeddings via sentence-transformers or Google GenAI.
 3. Hybrid Mode: Dynamic semantic retrieval with graceful offline fallback.
-Track 04: Connected Municipal Infrastructure & Civic Telemetry Grounding.
+Connected Municipal Infrastructure & Civic Telemetry Grounding.
 """
 
 from enum import Enum
@@ -183,7 +183,7 @@ SYNTHETIC_EVIDENCE_CORPUS: List[Dict[str, Any]] = [
             "Municipal Jurisdiction: Varanasi Cantt Administrative Division."
         ),
     },
-    # --- Transit CCTV Manifests (Track 04 Connected Infrastructure) ---
+    # --- Transit CCTV Manifests (Connected Infrastructure) ---
     {
         "id": "cctv-patna-001",
         "source_id": "cctv_patna_railway",

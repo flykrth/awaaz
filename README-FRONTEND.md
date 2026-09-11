@@ -1,12 +1,10 @@
 # Project Awaaz: Next.js Production Web Frontend
 
-> **Track 03: Trustworthy, Responsible & Secure AI**  
-> **Track 04: Smart Infrastructure & Connected Communities**  
 > *A deterministic multi-agent governance architecture ensuring zero-harm, privacy-preserving case resolution for high-stakes missing-child investigations across connected urban infrastructure.*
 
 ---
 
-## 🌟 Overview
+## Overview
 
 This modern, responsive Next.js (App Router) web application upgrades Project Awaaz from its initial Streamlit prototype to a high-aesthetic, production-grade frontend built for hackathon evaluation and 1-click deployment on **Vercel**.
 

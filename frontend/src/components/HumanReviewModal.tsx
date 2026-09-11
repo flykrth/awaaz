@@ -78,19 +78,19 @@ export function HumanReviewModal({
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
               <div className="bg-slate-900/60 p-2.5 rounded-lg border border-slate-800">
                 <div className="text-slate-400 text-[10px]">Identity</div>
-                <div className="text-emerald-400 font-mono font-bold">✓ 0.98</div>
+                <div className="text-emerald-400 font-mono font-bold">0.98</div>
               </div>
               <div className="bg-slate-900/60 p-2.5 rounded-lg border border-slate-800">
                 <div className="text-slate-400 text-[10px]">Origin</div>
-                <div className="text-emerald-400 font-mono font-bold">✓ 0.98</div>
+                <div className="text-emerald-400 font-mono font-bold">0.98</div>
               </div>
               <div className="bg-slate-900/60 p-2.5 rounded-lg border border-slate-800">
                 <div className="text-slate-400 text-[10px]">Timeline</div>
-                <div className="text-emerald-400 font-mono font-bold">✓ 0.98</div>
+                <div className="text-emerald-400 font-mono font-bold">0.98</div>
               </div>
               <div className="bg-slate-900/60 p-2.5 rounded-lg border border-slate-800">
                 <div className="text-slate-400 text-[10px]">Markers</div>
-                <div className="text-emerald-400 font-mono font-bold">✓ 0.98</div>
+                <div className="text-emerald-400 font-mono font-bold">0.98</div>
               </div>
             </div>
 

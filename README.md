@@ -1,6 +1,5 @@
 # Project Awaaz: An Evidence-Grounded Case-Resolution System
 
-> **TRACK 04: Sustainability, Smart Infrastructure & Future Communities**  
 > *A deterministic multi-agent governance architecture ensuring zero-harm, privacy-preserving case resolution for high-stakes missing-child investigations across connected urban infrastructure.*
 
 ---
@@ -15,8 +14,8 @@
 
 ## 📌 Executive Summary & Problem Statement
 
-### The Coordination Gap in Future Communities
-Every year, tens of thousands of missing-child cases encounter critical delays caused by fragmented records across state police departments, child welfare committees, hospital admissions, and municipal transit authorities. In the context of **Smart Infrastructure & Future Communities (Track 04)**, resilient civic infrastructure requires connecting disparate municipal silos—railway passenger concourses, interstate bus terminal surveillance grids, and municipal hospital pediatric admissions—without risking human safety or minor privacy.
+### The Coordination Gap in Connected Communities
+Every year, tens of thousands of missing-child cases encounter critical delays caused by fragmented records across state police departments, child welfare committees, hospital admissions, and municipal transit authorities. Resilient civic infrastructure requires connecting disparate municipal silos—railway passenger concourses, interstate bus terminal surveillance grids, and municipal hospital pediatric admissions—without risking human safety or minor privacy.
 
 ### The Danger of Autonomous AI Taking Unverified Actions
 While Large Language Models (LLMs) offer strong synthesis and multi-source reasoning capabilities, deploying unconstrained autonomous agents in missing-child recovery introduces catastrophic risks:
@@ -71,7 +70,7 @@ flowchart TD
     subgraph FastMCP ["FastMCP Enterprise Boundary (In-Process + Standalone Launcher)"]
         ToolMeta["search_case_metadata()"]
         ToolTime["check_case_timeline()"]
-        ToolCivic["allocate_civic_resources()\n(Track 04 Municipal Dispatch)"]
+        ToolCivic["allocate_civic_resources()\n(Municipal Dispatch)"]
         Quarantine["[QUARANTINE GATE]\nBlocks exact_address, biometric_hash, contact_number\n(Raises ValueError before LLM ingestion)"]
     end
 
@@ -116,7 +115,7 @@ flowchart TD
   - **Sovereign Embedding Function:** Employs a deterministic, normalized 128-dimensional MD5 hash projection algorithm executing in $<1\text{ms}$ with **zero external network requests or model downloads**.
   - **Automatic Fallback:** Graceful try/except wrapper automatically falls back to Sovereign mode if packages or network connections are unavailable.
 - **Runtime Mode Toggle:** Configure via `AWAAZ_EMBEDDING_MODE=hybrid|transformer|sovereign` or runtime calls `set_embedding_mode(mode)`.
-- **Connected Municipal Infrastructure Corpus (Track 04):** Ingests official evidence across transit corridors:
+- **Connected Municipal Infrastructure Corpus:** Ingests official evidence across transit corridors:
   1. *East Central Railway (ECR) Danapur / Patna Junction CCTV Cam-04* (checkpoint coverage 94.2%, handoff latency 14m)
   2. *Birsa Munda Interstate Bus Terminal (ISBT) Bay 4 CCTV Surveillance* (checkpoint coverage 96.8%, handoff latency 22m)
   3. *Varanasi Smart City Traffic Surveillance Grid CCTV Cam-14 Godowlia Chowk* (checkpoint coverage 98.1%, handoff latency 8m)
@@ -306,14 +305,13 @@ The Streamlit dashboard (`http://localhost:8501`) features four dedicated audito
 - **Similarity Scoring**: View real-time cosine similarity scores and metadata badges.
 - **Corpus Catalogue**: Expand the full indexed database to inspect evidence provenance.
 
-### 🌐 Tab 4: Smart Civic Infrastructure Telemetry (Track 04)
+### 🌐 Tab 4: Smart Civic Infrastructure Telemetry
 - **Active Municipal Nodes**: Live telemetry grid of railway stations, bus terminals, CCTV surveillance grids, and pediatric hospital triage.
 - **FastMCP Security Telemetry**: Audit log verifying 100% enforcement of the Pre-LLM Quarantine Gate with zero PII leaks.
 - **Civic Resource Dispatch Simulator**: Interactive simulation invoking `allocate_civic_resources` to dispatch transit surveillance flags across municipal checkpoints.
 
 ---
 
-## 👥 Authors & Track Submission
+## 👥 Authors & Project Overview
 - **Project**: Project Awaaz
-- **Hackathon Track**: **TRACK 04: Sustainability, Smart Infrastructure & Future Communities**
-- **Core Technology**: LangGraph, ChromaDB Hybrid RAG, Google Gemini 2.5, FastMCP, Pydantic, Streamlit, Python 3.13
+- **Core Technology**: Next.js, LangGraph, ChromaDB Hybrid RAG, Google Gemini 2.5, FastMCP, Pydantic, Streamlit, Python 3.13

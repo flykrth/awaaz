@@ -53,9 +53,6 @@ export function Navbar({
                   Evidence-Grounded Case Resolution
                 </span>
               </h1>
-              <span className="hidden sm:inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold bg-trust-950 text-trust-300 border border-trust-600/40">
-                Track 03: Trustworthy AI
-              </span>
             </div>
             <p className="text-xs text-slate-400 hidden md:block">
               Deterministic 3+1 LangGraph Multi-Agent Governance & FastMCP Privacy Gate

@@ -1,5 +1,4 @@
 # Project Awaaz — 3-Minute Demonstration Video Production Script
-**Track 04: Sustainability, Smart Infrastructure & Future Communities**  
 **Event:** Agentic AI Hackathon (Day 5/5 Finalist Presentation)  
 **Total Target Runtime:** Exactly 3 Minutes (180 Seconds)  
 **Format:** Split Screen (Left: Presenter / Voiceover • Right: Live Screen Recording of Streamlit UI & Terminal)
@@ -8,10 +7,10 @@
 
 ## ⏱️ Timeline & Scene Breakdown
 
-### SECTION 1: The Problem & Track 04 Civic Infrastructure Gap (0:00 – 0:30)
+### SECTION 1: The Problem & Civic Infrastructure Gap (0:00 – 0:30)
 **Visual:** 
 - Visual diagram showing disconnected municipal silos: Railway passenger manifests, bus terminal surveillance cameras, municipal hospital pediatric emergency logs, and child protection registries.
-- Cut to Project Awaaz Streamlit Dashboard header: Track 04 Civic Telemetry.
+- Cut to Project Awaaz Streamlit Dashboard header: Civic Telemetry.
 
 **Voiceover / Dialogue (Presenter):**
 > "In smart cities and connected municipal infrastructure, recovering missing children is a race against time. Yet critical evidence is trapped in fragmented silos: railway passenger concourses, interstate bus terminals, CCTV surveillance grids, and municipal hospital emergency triage.
@@ -84,7 +83,7 @@
 
 ---
 
-### SECTION 5: Benchmark Verification, Track 04 Telemetry & Sovereign Mode (2:30 – 3:00)
+### SECTION 5: Benchmark Verification, Municipal Telemetry & Sovereign Mode (2:30 – 3:00)
 **Visual:**
 - Switch to **Tab 4: 🌐 Smart Civic Infrastructure Telemetry**:
   - Show the active municipal nodes: ECR Patna Platform 2, Birsa Munda ISBT, Godowlia Smart Traffic Cam-14, PMCH Pediatric Triage.

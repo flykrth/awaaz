@@ -1,7 +1,6 @@
 """Project Awaaz - Streamlit Frontend Dashboard, Observability Trace & Judge Playground.
 
 Evidence-grounded case resolution agent with ChromaDB Vector RAG and deterministic policy governance.
-Track 04: Sustainability, Smart Infrastructure & Future Communities.
 """
 
 import os
@@ -23,7 +22,7 @@ from src.tools.mock_db import MockCaseDB
 
 # --- Page Configuration ---
 st.set_page_config(
-    page_title="Project Awaaz - Track 04 Governance Dashboard",
+    page_title="Project Awaaz - Governance Dashboard",
     page_icon="🛡️",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -252,7 +251,6 @@ NODE_META = {
 # =========================================================================
 st.sidebar.title("Project Awaaz Dashboard")
 st.sidebar.markdown(
-    "**Track 04: Sustainability, Smart Infrastructure & Future Communities**  \n"
     "Evidence-Grounded Case Resolution with ChromaDB RAG & Deterministic Policy Governance."
 )
 
@@ -327,7 +325,7 @@ tab_canonical, tab_playground, tab_rag, tab_civic = st.tabs([
     "🏛️ Canonical Case Audit",
     "🧪 Interactive Custom Playground",
     "🔎 RAG Evidence Inspector",
-    "🌐 Smart Civic Telemetry (Track 04)",
+    "🌐 Smart Civic Telemetry",
 ])
 
 
@@ -845,10 +843,10 @@ with tab_rag:
 
 
 # =========================================================================
-# TAB 4: Smart Civic Infrastructure Telemetry (Track 04)
+# TAB 4: Smart Civic Infrastructure Telemetry
 # =========================================================================
 with tab_civic:
-    st.markdown("### 🌐 Track 04: Connected Municipal Infrastructure Telemetry")
+    st.markdown("### 🌐 Connected Municipal Infrastructure Telemetry")
     st.markdown(
         "Project Awaaz connects municipal silos across railway stations, interstate bus terminals, "
         "smart surveillance grids, and municipal pediatric emergency units while enforcing strict data minimization."

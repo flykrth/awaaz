@@ -126,7 +126,7 @@ export function SignatureCard({
               </div>
               <div className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 text-xs font-mono font-bold">
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                <span>✓ 0.91</span>
+                <span>0.91</span>
               </div>
             </div>
 
@@ -138,7 +138,7 @@ export function SignatureCard({
               </div>
               <div className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 text-xs font-mono font-bold">
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                <span>✓ 0.87</span>
+                <span>0.87</span>
               </div>
             </div>
 
@@ -150,7 +150,7 @@ export function SignatureCard({
               </div>
               <div className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 text-xs font-mono font-bold">
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                <span>✓ 0.93</span>
+                <span>0.93</span>
               </div>
             </div>
 
@@ -166,7 +166,7 @@ export function SignatureCard({
               </div>
               <div className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-crimson-600 text-white text-xs font-mono font-black tracking-wider shadow-sm animate-pulse">
                 <XCircle className="w-3.5 h-3.5" />
-                <span>✗ HARD</span>
+                <span>HARD</span>
               </div>
             </div>
           </div>
@@ -181,7 +181,7 @@ export function SignatureCard({
           </div>
           <div className="space-y-1.5 flex-1">
             <div className="text-base sm:text-lg font-black tracking-wide text-white flex items-center gap-2">
-              <span>🚫 ESCALATION BLOCKED</span>
+              <span>ESCALATION BLOCKED</span>
             </div>
             <p className="text-sm sm:text-base font-semibold text-crimson-200">
               Physical marker contradiction detected. Policy:{" "}

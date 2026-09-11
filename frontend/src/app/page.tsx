@@ -144,7 +144,7 @@ export default function DashboardPage() {
               }`}
             >
               <Radio className="w-4 h-4" />
-              <span>Smart Civic Telemetry (Track 04)</span>
+              <span>Smart Civic Telemetry</span>
             </button>
           </div>
 
@@ -258,7 +258,7 @@ export default function DashboardPage() {
         {/* Tab 2: RAG Evidence Inspector */}
         {activeTab === "rag" && <EvidenceInspector />}
 
-        {/* Tab 3: Smart Civic Telemetry (Track 04) */}
+        {/* Tab 3: Smart Civic Telemetry */}
         {activeTab === "civic" && (
           <div className="glass-panel rounded-2xl p-6 shadow-xl space-y-6">
             <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-4">
@@ -266,7 +266,7 @@ export default function DashboardPage() {
                 <div className="flex items-center gap-2">
                   <Radio className="w-5 h-5 text-trust-400" />
                   <h2 className="text-base sm:text-lg font-bold text-white tracking-tight">
-                    Smart Civic Infrastructure &amp; Transit Telemetry (Track 04)
+                    Smart Civic Infrastructure &amp; Transit Telemetry
                   </h2>
                 </div>
                 <p className="text-xs text-slate-400 mt-0.5">

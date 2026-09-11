@@ -20,7 +20,6 @@ export const metadata: Metadata = {
     "A deterministic multi-agent governance architecture ensuring zero-harm, privacy-preserving case resolution for high-stakes missing-child investigations across connected urban infrastructure.",
   keywords: [
     "Project Awaaz",
-    "Track 03",
     "Trustworthy AI",
     "Responsible AI",
     "LangGraph",

@@ -103,7 +103,7 @@ export const MOCK_RESULTS: Record<string, InvestigationResult> = {
         node: "manager",
         plane: "Plane 1: Intake & Security Audit",
         title: "Case Manager Agent",
-        icon: "🧭",
+        icon: "compass",
         tool: "scan_prompt_injection() & Dynamic Uncertainty Routing",
         toolType: "Security Audit",
         reasoning:
@@ -116,7 +116,7 @@ export const MOCK_RESULTS: Record<string, InvestigationResult> = {
         node: "context_inv",
         plane: "Plane 2: FastMCP & RAG Investigators",
         title: "Context Investigator",
-        icon: "⏱️",
+        icon: "clock",
         tool: "FastMCP: check_case_timeline(origin='Patna', dest='Danapur', date='2026-09-01')",
         toolType: "FastMCP",
         reasoning:
@@ -129,7 +129,7 @@ export const MOCK_RESULTS: Record<string, InvestigationResult> = {
         node: "critic",
         plane: "Plane 3: Adversarial Safety Critic",
         title: "Safety Critic Agent",
-        icon: "⚖️",
+        icon: "scale",
         tool: "Dual-Mode LLM Gateway: audit_contradictions()",
         toolType: "Dual-Mode LLM",
         reasoning:
@@ -142,7 +142,7 @@ export const MOCK_RESULTS: Record<string, InvestigationResult> = {
         node: "policy_eval",
         plane: "The +1 Plane: Deterministic Policy Engine",
         title: "Policy Evaluator Engine",
-        icon: "🛡️",
+        icon: "shield",
         tool: "Zero-LLM Governance Rules Engine (Rule 4 Triggered)",
         toolType: "Deterministic Policy",
         reasoning:
@@ -206,7 +206,7 @@ export const MOCK_RESULTS: Record<string, InvestigationResult> = {
         node: "manager",
         plane: "Plane 1: Intake & Security Audit",
         title: "Case Manager Agent",
-        icon: "🧭",
+        icon: "compass",
         tool: "scan_prompt_injection() & Dynamic Uncertainty Routing",
         toolType: "Security Audit",
         reasoning:
@@ -219,7 +219,7 @@ export const MOCK_RESULTS: Record<string, InvestigationResult> = {
         node: "evidence_inv",
         plane: "Plane 2: FastMCP & RAG Investigators",
         title: "Evidence Investigator",
-        icon: "🔎",
+        icon: "search",
         tool: "FastMCP: search_case_metadata(case_id='CASE-002', requested_fields=['physical_markers', 'age'])",
         toolType: "FastMCP",
         reasoning:
@@ -232,7 +232,7 @@ export const MOCK_RESULTS: Record<string, InvestigationResult> = {
         node: "critic",
         plane: "Plane 3: Adversarial Safety Critic",
         title: "Safety Critic Agent",
-        icon: "⚖️",
+        icon: "scale",
         tool: "Dual-Mode LLM Gateway: audit_contradictions()",
         toolType: "Dual-Mode LLM",
         reasoning:
@@ -254,7 +254,7 @@ export const MOCK_RESULTS: Record<string, InvestigationResult> = {
         node: "policy_eval",
         plane: "The +1 Plane: Deterministic Policy Engine",
         title: "Policy Evaluator Engine",
-        icon: "🛡️",
+        icon: "shield",
         tool: "Deterministic Governance Engine (Rule 1 Enforced)",
         toolType: "Deterministic Policy",
         reasoning:
@@ -310,7 +310,7 @@ export const MOCK_RESULTS: Record<string, InvestigationResult> = {
         node: "manager",
         plane: "Plane 1: Intake & Security Audit",
         title: "Case Manager Agent",
-        icon: "🧭",
+        icon: "compass",
         tool: "scan_prompt_injection() & Dynamic Uncertainty Routing",
         toolType: "Security Audit",
         reasoning:
@@ -323,7 +323,7 @@ export const MOCK_RESULTS: Record<string, InvestigationResult> = {
         node: "evidence_inv",
         plane: "Plane 2: FastMCP & RAG Investigators",
         title: "Evidence & Context Investigators",
-        icon: "🔎",
+        icon: "search",
         tool: "FastMCP: search_case_metadata + ChromaDB Vector RAG",
         toolType: "FastMCP",
         reasoning:
@@ -336,7 +336,7 @@ export const MOCK_RESULTS: Record<string, InvestigationResult> = {
         node: "critic",
         plane: "Plane 3: Adversarial Safety Critic",
         title: "Safety Critic Agent",
-        icon: "⚖️",
+        icon: "scale",
         tool: "Dual-Mode LLM Gateway: audit_contradictions()",
         toolType: "Dual-Mode LLM",
         reasoning:
@@ -349,7 +349,7 @@ export const MOCK_RESULTS: Record<string, InvestigationResult> = {
         node: "policy_eval",
         plane: "The +1 Plane: Deterministic Policy Engine",
         title: "Policy Evaluator Engine",
-        icon: "🛡️",
+        icon: "shield",
         tool: "Deterministic Governance Engine (Rule 5 Enforced)",
         toolType: "Deterministic Policy",
         reasoning:
