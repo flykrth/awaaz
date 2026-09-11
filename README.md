@@ -33,3 +33,9 @@ uv pip install -r requirements.txt
 ```bash
 pytest -v
 ```
+
+### Running the Evaluation Benchmark
+
+```bash
+python eval/run_benchmark.py
+```
