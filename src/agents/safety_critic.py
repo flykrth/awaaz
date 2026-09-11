@@ -39,6 +39,22 @@ def safety_critic_node(state: CaseState) -> Dict[str, Any]:
                 )
             )
 
+    if (
+        "physical marker contradiction" in combined_context
+        or "physical markers contradiction" in combined_context
+        or "left forearm != right forearm" in combined_context
+    ):
+        if not any(c.dimension == "physical_markers" and c.type == "HARD" for c in contradictions):
+            contradictions.append(
+                Contradiction(
+                    dimension="physical_markers",
+                    type="HARD",
+                    source_a="hospital_records",
+                    source_b="field_witness_statement",
+                    reason="Physical marker contradiction detected: left forearm != right forearm",
+                )
+            )
+
     if "soft contradiction" in combined_context:
         if not any(c.type == "SOFT" for c in contradictions):
             contradictions.append(
