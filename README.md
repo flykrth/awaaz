@@ -4,14 +4,6 @@
 
 ---
 
-## 🎥 3-Minute Demonstration Video & Production Package
-
-> 📺 **Video Walkthrough:** [Project Awaaz - 3-Minute Judge Demonstration](https://youtu.be/placeholder-project-awaaz-demo)  
-> 📄 **Production Script:** [docs/DEMO_VIDEO_SCRIPT.md](docs/DEMO_VIDEO_SCRIPT.md)  
-> *(A second-by-second 180-second production walkthrough demonstrating real-time ChromaDB Hybrid Vector RAG grounding, the dual-mode Sovereign LLM engine, 3-Tier adversarial jailbreak defense, FastMCP municipal resource allocation, and the interactive judge playground).*
-
----
-
 ## 📌 Executive Summary & Problem Statement
 
 ### The Coordination Gap in Connected Communities
