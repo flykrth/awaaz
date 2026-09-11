@@ -1,87 +1,55 @@
-"""Safety Critic agent for Project Awaaz 3+1 architecture."""
+"""Safety Critic agent for Project Awaaz 3+1 architecture with dynamic structured extraction."""
 
 from typing import Any, Dict, List
+from src.models.llm_gateway import get_llm_gateway
 from src.state import CaseState, Contradiction, UncertaintyBudget
 
 
 def safety_critic_node(state: CaseState) -> Dict[str, Any]:
-    """Reviews state history and findings, extracts contradictions, and finalizes uncertainty budget.
+    """Reviews state history, raw intake, and findings, dynamically extracts contradictions, and finalizes budget.
 
-    Uses a static mock mapping for tests to simulate LLM JSON extraction of contradictions
-    and safety critique across gathered evidence sources.
+    Uses LLM Gateway with deterministic Sovereign fallback to audit cross-source contradictions
+    into HARD and SOFT categories dynamically.
     """
-    contradictions: List[Contradiction] = list(state.contradictions)
+    llm_gateway = get_llm_gateway()
+    existing_contradictions: List[Contradiction] = list(state.contradictions)
 
-    # Static mock mapping simulating LLM JSON extraction from investigation findings
-    combined_context = (state.raw_intake + " " + " ".join(state.history)).lower()
+    # Dynamic structured contradiction extraction across gathered evidence
+    extracted_raw = llm_gateway.extract_contradictions(
+        raw_intake=state.raw_intake,
+        history=state.history,
+    )
 
-    if "hard contradiction" in combined_context or ("conflict" in combined_context and "timeline" in combined_context):
-        if not any(c.dimension == "timeline" and c.type == "HARD" for c in contradictions):
-            contradictions.append(
+    for item in extracted_raw:
+        dim = item.get("dimension", "physical_markers")
+        c_type = item.get("type", "HARD")
+        # Prevent exact duplicate contradictions
+        if not any(c.dimension == dim and c.type == c_type and c.reason == item.get("reason") for c in existing_contradictions):
+            existing_contradictions.append(
                 Contradiction(
-                    dimension="timeline",
-                    type="HARD",
-                    source_a="FastMCP.check_case_timeline",
-                    source_b="field_witness_statement",
-                    reason="Transit timeline fundamentally conflicts with witness timestamp.",
-                )
-            )
-
-    if "identity conflict" in combined_context:
-        if not any(c.dimension == "identity" for c in contradictions):
-            contradictions.append(
-                Contradiction(
-                    dimension="identity",
-                    type="HARD",
-                    source_a="search_case_metadata",
-                    source_b="raw_intake",
-                    reason="Subject identity details conflict with intake record.",
-                )
-            )
-
-    if (
-        "physical marker contradiction" in combined_context
-        or "physical markers contradiction" in combined_context
-        or "left forearm != right forearm" in combined_context
-    ):
-        if not any(c.dimension == "physical_markers" and c.type == "HARD" for c in contradictions):
-            contradictions.append(
-                Contradiction(
-                    dimension="physical_markers",
-                    type="HARD",
-                    source_a="hospital_records",
-                    source_b="field_witness_statement",
-                    reason="Physical marker contradiction detected: left forearm != right forearm",
-                )
-            )
-
-    if "soft contradiction" in combined_context:
-        if not any(c.type == "SOFT" for c in contradictions):
-            contradictions.append(
-                Contradiction(
-                    dimension="physical_markers",
-                    type="SOFT",
-                    source_a="search_case_metadata",
-                    source_b="field_witness_statement",
-                    reason="Minor discrepancy in estimated height/clothing.",
+                    dimension=dim,
+                    type=c_type,
+                    source_a=item.get("source_a", "investigation_findings"),
+                    source_b=item.get("source_b", "case_records"),
+                    reason=item.get("reason", "Discrepancy detected across evidence sources."),
                 )
             )
 
     # Finalize uncertainty budget based on findings and identified contradictions
     updated_budget = UncertaintyBudget({k: v.model_copy() for k, v in state.uncertainty_budget.items()})
 
-    for contradiction in contradictions:
+    for contradiction in existing_contradictions:
         if contradiction.dimension in updated_budget and contradiction.type == "HARD":
             updated_budget[contradiction.dimension].status = "CONTRADICTED"
             updated_budget[contradiction.dimension].confidence = 0.0
 
     critic_entry = (
-        f"Critic: Review completed. Contradictions identified: {len(contradictions)}. "
+        f"Critic: Review completed. Contradictions identified: {len(existing_contradictions)}. "
         f"Finalized uncertainty budget across {len(updated_budget)} dimensions."
     )
 
     return {
         "history": list(state.history) + [critic_entry],
-        "contradictions": contradictions,
+        "contradictions": existing_contradictions,
         "uncertainty_budget": updated_budget,
     }
