@@ -4,7 +4,7 @@ import json
 from typing import Any, Dict, List
 from src.models.llm_gateway import get_llm_gateway
 from src.rag.vector_store import query_evidence
-from src.state import CaseState, UncertaintyBudget
+from src.state import CaseState, UncertaintyBudget, calculate_entropy
 from src.tools.mcp_server import check_case_timeline, search_case_metadata
 from src.tools.mock_db import MockCaseDB
 
@@ -73,9 +73,14 @@ def evidence_investigator_node(state: CaseState) -> Dict[str, Any]:
         f"| Grounded with {total_chunks} ChromaDB vector chunks."
     )
 
+    cur_entropy = calculate_entropy(updated_budget)
+    entropy_hist = list(state.entropy_history) + [cur_entropy]
+
     return {
         "history": list(state.history) + [history_entry],
         "uncertainty_budget": updated_budget,
+        "uncertainty_entropy": cur_entropy,
+        "entropy_history": entropy_hist,
     }
 
 
@@ -123,7 +128,12 @@ def context_investigator_node(state: CaseState) -> Dict[str, Any]:
         f"(Dynamic route: {origin} -> {dest} on {date}) | Grounded with {len(timeline_chunks)} ChromaDB vector chunks."
     )
 
+    cur_entropy = calculate_entropy(updated_budget)
+    entropy_hist = list(state.entropy_history) + [cur_entropy]
+
     return {
         "history": list(state.history) + [history_entry],
         "uncertainty_budget": updated_budget,
+        "uncertainty_entropy": cur_entropy,
+        "entropy_history": entropy_hist,
     }

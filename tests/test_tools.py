@@ -128,4 +128,39 @@ class TestMCPServerTools:
                 "Route consistent: Patna to Mumbai takes 28 hours via RAIL-09"
             )
 
+            # Test allocate_civic_resources via FastMCP
+            dispatch_res = await mcp.call_tool(
+                "allocate_civic_resources",
+                {"case_id": "CASE-001", "priority_level": "HIGH", "transit_hub": "Patna Junction"},
+            )
+            assert dispatch_res.is_error is False
+            d_data = json.loads(dispatch_res.content[0].text)
+            assert d_data["status"] == "DISPATCHED"
+            assert d_data["pii_quarantine_enforced"] is True
+            assert "exact_address" not in d_data["disclosed_attributes"]
+
         asyncio.run(_run())
+
+    def test_allocate_civic_resources_direct(self):
+        """Verify allocate_civic_resources dispatches alert and enforces zero PII disclosure."""
+        from src.tools.mcp_server import allocate_civic_resources
+
+        res_str = allocate_civic_resources("CASE-001", "CRITICAL", "Patna Junction Platform 2")
+        data = json.loads(res_str)
+
+        assert data["status"] == "DISPATCHED"
+        assert data["priority"] == "CRITICAL"
+        assert data["transit_hub"] == "Patna Junction Platform 2"
+        assert data["pii_quarantine_enforced"] is True
+        assert "exact_address" not in data["disclosed_attributes"]
+        assert "biometric_hash" not in data["disclosed_attributes"]
+        assert "contact_number" not in data["disclosed_attributes"]
+        assert "House No. 42" not in res_str
+        assert "+91-9876543210" not in res_str
+
+    def test_allocate_civic_resources_nonexistent_case(self):
+        """Verify allocate_civic_resources handles non-existent cases gracefully."""
+        from src.tools.mcp_server import allocate_civic_resources
+
+        res_str = allocate_civic_resources("CASE-999", "STANDARD", "Birsa Munda ISBT")
+        assert "CASE_NOT_FOUND" in res_str

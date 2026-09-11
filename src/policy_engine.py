@@ -1,7 +1,14 @@
-"""Deterministic, zero-LLM policy engine for Project Awaaz case routing."""
+"""Deterministic, zero-LLM policy engine for Project Awaaz case routing.
+
+Enforces Multi-Tier Civic Escalation Protocols:
+- HOLD: Hard contradiction or adversarial threat -> Halt and alert supervisors.
+- REQUEST_INFORMATION: Missing critical intake fields -> Ping reporting citizen/station.
+- INVESTIGATE: Incomplete corroboration -> Dispatch FastMCP transit/hospital agents.
+- HUMAN_REVIEW_REQUIRED: All dimensions corroborated -> Route to Municipal Child Welfare Officer with full audit trail.
+"""
 
 from typing import Any, Dict
-from src.state import CaseState
+from src.state import CaseState, calculate_entropy
 
 
 def explain_decision(state: CaseState) -> Dict[str, Any]:
@@ -10,12 +17,18 @@ def explain_decision(state: CaseState) -> Dict[str, Any]:
     Returns:
         dict containing:
             - rule: string identifier of the rule triggered (e.g. 'Rule 1')
+            - rule_id: string identifier ('RULE_1', etc.)
             - rule_triggered: string identifier of the rule triggered
             - decision: resulting policy decision ('HOLD', 'REQUEST_INFORMATION', 'INVESTIGATE', 'HUMAN_REVIEW_REQUIRED')
             - blocked: boolean indicating whether case progression is halted
             - blocked_status: boolean mirroring blocked
             - rationale: detailed human-readable explanation of why this rule was triggered
+            - escalation_tier: multi-tier civic escalation classification
+            - civic_action: municipal operational action to dispatch
+            - entropy: current uncertainty entropy metric (1.0 unresolved to 0.0 resolved)
     """
+    entropy = calculate_entropy(state.uncertainty_budget)
+
     # Rule 1: If any contradiction has type == "HARD", return "HOLD"
     hard_contradictions = [c for c in state.contradictions if c.type == "HARD"]
     if hard_contradictions:
@@ -28,6 +41,9 @@ def explain_decision(state: CaseState) -> Dict[str, Any]:
             "decision": "HOLD",
             "blocked": True,
             "blocked_status": True,
+            "escalation_tier": "SUPERVISORY_HOLD",
+            "civic_action": "Hard contradiction detected. Halt automated escalation and alert child protection supervisors.",
+            "entropy": entropy,
             "rationale": (
                 f"Hard contradiction detected across dimension(s) [{dims}]. "
                 f"Details: {reasons}."
@@ -43,6 +59,9 @@ def explain_decision(state: CaseState) -> Dict[str, Any]:
             "decision": "HOLD",
             "blocked": True,
             "blocked_status": True,
+            "escalation_tier": "SUPERVISORY_HOLD",
+            "civic_action": "Adversarial threat detected. Halt execution immediately and alert administrative supervisors.",
+            "entropy": entropy,
             "rationale": (
                 "Adversarial prompt injection attempt detected in intake data. "
                 "Execution halted immediately for safety."
@@ -58,6 +77,9 @@ def explain_decision(state: CaseState) -> Dict[str, Any]:
             "decision": "REQUEST_INFORMATION",
             "blocked": False,
             "blocked_status": False,
+            "escalation_tier": "CITIZEN_STATION_PING",
+            "civic_action": "Missing critical intake fields. Ping reporting citizen or intake police station for missing metadata.",
+            "entropy": entropy,
             "rationale": (
                 "Mandatory user input is missing. Requesting additional information from the user."
             ),
@@ -81,6 +103,9 @@ def explain_decision(state: CaseState) -> Dict[str, Any]:
             "decision": "INVESTIGATE",
             "blocked": False,
             "blocked_status": False,
+            "escalation_tier": "FASTMCP_MUNICIPAL_DISPATCH",
+            "civic_action": "Incomplete corroboration. Dispatch FastMCP transit surveillance and hospital investigator agents.",
+            "entropy": entropy,
             "rationale": (
                 f"Required evidence dimension(s) remain unconfirmed: {details}."
             ),
@@ -94,6 +119,9 @@ def explain_decision(state: CaseState) -> Dict[str, Any]:
         "decision": "HUMAN_REVIEW_REQUIRED",
         "blocked": False,
         "blocked_status": False,
+        "escalation_tier": "MUNICIPAL_CW_OFFICER_ROUTE",
+        "civic_action": "All dimensions corroborated. Route to Municipal Child Welfare Officer with full audit trail.",
+        "entropy": entropy,
         "rationale": (
             "All required dimensions are fully confirmed with zero hard contradictions "
             "or adversarial risks. Ready for human adjudicator review."

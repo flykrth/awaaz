@@ -2,7 +2,7 @@
 
 from typing import Any, Dict, List
 from src.models.llm_gateway import get_llm_gateway
-from src.state import CaseState, Contradiction, UncertaintyBudget
+from src.state import CaseState, Contradiction, UncertaintyBudget, calculate_entropy
 
 
 def safety_critic_node(state: CaseState) -> Dict[str, Any]:
@@ -43,6 +43,9 @@ def safety_critic_node(state: CaseState) -> Dict[str, Any]:
             updated_budget[contradiction.dimension].status = "CONTRADICTED"
             updated_budget[contradiction.dimension].confidence = 0.0
 
+    cur_entropy = calculate_entropy(updated_budget)
+    entropy_hist = list(state.entropy_history) + [cur_entropy]
+
     critic_entry = (
         f"Critic: Review completed. Contradictions identified: {len(existing_contradictions)}. "
         f"Finalized uncertainty budget across {len(updated_budget)} dimensions."
@@ -52,4 +55,6 @@ def safety_critic_node(state: CaseState) -> Dict[str, Any]:
         "history": list(state.history) + [critic_entry],
         "contradictions": existing_contradictions,
         "uncertainty_budget": updated_budget,
+        "uncertainty_entropy": cur_entropy,
+        "entropy_history": entropy_hist,
     }

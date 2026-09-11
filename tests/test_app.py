@@ -140,3 +140,22 @@ def test_streamlit_apptest_mode_switcher():
     # Toggle back to Sovereign Mode
     at.sidebar.radio[0].set_value("Sovereign Offline Mode (Day 4 Bonus)").run()
     assert not at.exception
+
+
+def test_streamlit_apptest_tab_civic_and_entropy():
+    """Verifies that Tab 4 telemetry and uncertainty entropy metrics render in the dashboard."""
+    from pathlib import Path
+    from streamlit.testing.v1 import AppTest
+
+    app_path = Path(__file__).parent.parent / "app.py"
+    at = AppTest.from_file(str(app_path), default_timeout=15)
+    at.run()
+    assert not at.exception
+
+    # Execute Case 1 to generate entropy curve
+    at.sidebar.selectbox[0].select("CASE-001 (Missing Timeline)").run()
+    assert not at.exception
+    at.button[0].click().run()
+    assert len(at.metric) > 0
+    assert any("Initial Uncertainty" in m.label for m in at.metric)
+    assert any("Final Uncertainty" in m.label for m in at.metric)

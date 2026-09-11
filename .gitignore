@@ -3,3 +3,14 @@ __pycache__/
 *.py[cod]
 *$py.class
 .pytest_cache/
+
+# Secrets and environment files
+.env
+.env.*
+*.env
+!.env.example
+secrets/
+*.pem
+*.key
+credentials.json
+token.json

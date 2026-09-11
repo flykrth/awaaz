@@ -2,7 +2,7 @@
 
 from typing import Any, Dict
 from src.security.jailbreak_detector import is_jailbreak, scan_prompt_injection
-from src.state import CaseState
+from src.state import CaseState, calculate_entropy
 
 
 def route_case_manager(state: CaseState) -> str:
@@ -42,7 +42,13 @@ def case_manager_node(state: CaseState) -> Dict[str, Any]:
     injection_scan = scan_prompt_injection(state.raw_intake)
     adversarial_flag = state.adversarial_injection_detected or injection_scan["detected"]
 
-    updated_state_updates: Dict[str, Any] = {}
+    cur_entropy = calculate_entropy(state.uncertainty_budget)
+    entropy_hist = list(state.entropy_history) if state.entropy_history else [cur_entropy]
+
+    updated_state_updates: Dict[str, Any] = {
+        "uncertainty_entropy": cur_entropy,
+        "entropy_history": entropy_hist,
+    }
     if adversarial_flag and not state.adversarial_injection_detected:
         updated_state_updates["adversarial_injection_detected"] = True
 
